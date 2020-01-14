@@ -108,19 +108,20 @@ def plots(year,cat):
     #layout_sunburst = margin=dict(t=5, b=5, r=5, l=5)
 
     ########### Bubble ###########
+    categories_sum_0 = categories_sum.loc[categories_sum["year"] == year]
     data_bubble=[go.Scatter(
-        x=categories_sum["x"],
-        y=categories_sum["y"],
+        x=categories_sum_0["x"],
+        y=categories_sum_0["y"],
         mode='markers',
-        text=round(categories_sum["usd_pledged_real"] / 1000, 0), textposition="top center",
+        text=round(categories_sum_0["usd_pledged_real"] / 1000, 0), textposition="top center",
         marker=dict(colorscale="viridis", showscale=True,
             colorbar=dict(title="Main Category", tickvals=list(range(1, 16)),
             ticklen=5,
-            ticktext=categories_sum.sort_values("success_rank")["main_category"].unique()),
-            color=categories_sum.success_rank,
-            size=(categories_sum["pledged_minmax"])
+            ticktext=categories_sum_0.sort_values("success_rank")["main_category"].unique()),
+            color=categories_sum_0.success_rank,
+            size=(categories_sum_0["pledged_minmax"])
             ),
-        hovertext=categories_sum["category"] + "<br>" + round(categories_sum["usd_pledged_real"] / 1000000, 1).map(str) + "M $",
+        hovertext=categories_sum_0["category"] + "<br>" + round(categories_sum_0["usd_pledged_real"] / 1000000, 1).map(str) + "M $",
         hoverinfo="text")]
     layout_bubble=go.Layout(
         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
@@ -159,8 +160,10 @@ def plots(year,cat):
     )
 
     ########### linechart ###########
-    x = success_rate_month_perc['month name']
-    y = success_rate_month_perc['successful']
+    success_rate_month_perc_0 = success_rate_month_perc[success_rate_month_perc.category == cat]
+
+    x = success_rate_month_perc_0['month name']
+    y = success_rate_month_perc_0['successful']
 
     data_line=go.Scatter(x=x, y=y, mode='lines+markers')
 

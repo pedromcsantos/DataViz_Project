@@ -75,7 +75,8 @@ success_rate_cat_perc = success_rate_cat.apply(lambda r: r/r.sum(), axis=1)
 success_rate_seas = pd.crosstab(df["season"], df["state"])
 success_rate_seas_perc = success_rate_seas.apply(lambda r: r/r.sum(), axis=1)
 
-success_rate_month = pd.crosstab(df["month"], df["state"])
+
+success_rate_month = pd.crosstab(index = [df["month"],df["main_category"]],columns= df["state"])
 success_rate_month_perc = success_rate_month.apply(lambda r: r/r.sum(), axis=1)
 
 categories = df.main_category.unique()
@@ -96,7 +97,8 @@ longest = df["days"].max()
 
 
 #add column month name
-success_rate_month_perc['month name']=success_rate_month_perc.reset_index()['month'].apply(lambda x: calendar.month_abbr[x])
+success_rate_month_perc = success_rate_month_perc.reset_index()
+success_rate_month_perc['month name']=success_rate_month_perc['month'].apply(lambda x: calendar.month_abbr[x])
 success_rate_month_perc.head()
 
 # Sunburst Pre-processing
@@ -209,6 +211,8 @@ categories_sum = categories_sum.merge(con.success_rank, left_index=True, right_i
 categories_sum.reset_index(inplace=True)
 
 
+#### Uncomment next session to get csv
+"""
 df_all_trees.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\df_all_trees.csv")
 
 categories_sum.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\categories_sum.csv")
@@ -218,4 +222,4 @@ success_rate_cat_perc.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\
 success_rate_month_perc.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\success_rate_month_perc.csv")
 
 con.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\conlolol.csv")
-
+"""
