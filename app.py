@@ -14,7 +14,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 ########################################## DATA PREPROCESSING ##########################################
 df = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/kickstarter.csv")
-"""
+
 #First look
 df.columns
 
@@ -50,7 +50,7 @@ df["deadline"] = pd.to_datetime(df["deadline"])
 df["days_passed"] = df["deadline"].sub(df["launched"], axis=0)
 
 #Extract year and month and compute season
-df["year"] = pd.DatetimeIndex(df["launched"]).year
+#df["year"] = pd.DatetimeIndex(df["launched"]).year
 df["month"] = pd.DatetimeIndex(df["launched"]).month
 
 df["season"] = ["winter" if month<4 else "spring" if month < 7 else "summer" if month <10 else "autumn" for month in df.month.values]
@@ -58,7 +58,7 @@ df["season"] = ["winter" if month<4 else "spring" if month < 7 else "summer" if 
 df.year.value_counts()
 
 #df = df[~(df["year"]==2018)&~(df["year"]==1970)&~(df["year"]==2009)&~(df["year"]==2010)&~(df["year"]==2011)&~(df["year"]==2012)] #drop unecessary info
-"""
+
 # convert datetime to days
 df["days"] = df["days_passed"].dt.days
 # convert to hours
