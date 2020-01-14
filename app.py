@@ -160,7 +160,7 @@ def plots(year,cat):
     )
 
     ########### linechart ###########
-    success_rate_month_perc_0 = success_rate_month_perc[success_rate_month_perc.category == cat]
+    success_rate_month_perc_0 = success_rate_month_perc[success_rate_month_perc.main_category == cat]
 
     x = success_rate_month_perc_0['month name']
     y = success_rate_month_perc_0['successful']
