@@ -57,7 +57,7 @@ df["season"] = ["winter" if month<4 else "spring" if month < 7 else "summer" if 
 
 df.year.value_counts()
 
-df = df[~(df["year"]==2018)&~(df["year"]==1970)] #drop unecessary info
+df = df[~(df["year"]==2018)&~(df["year"]==1970)&~(df["year"]==2009)&~(df["year"]==2010)&~(df["year"]==2011)] #drop unecessary info
 
 # convert datetime to days
 df["days"] = df["days_passed"].dt.days
