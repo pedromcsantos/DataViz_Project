@@ -13,7 +13,7 @@ import random
 from sklearn.preprocessing import MinMaxScaler
 
 ########################################## DATA PREPROCESSING ##########################################
-df = pd.read_csv("C:\\Users\\pedro\\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\ks-projects-201801.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/ks-projects-201801.csv")
 
 #First look
 df.columns
