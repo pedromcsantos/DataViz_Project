@@ -13,7 +13,11 @@ import random
 from sklearn.preprocessing import MinMaxScaler
 
 ########################################## DATA PREPROCESSING ##########################################
-
+df_all_trees = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/df_all_trees.csv")
+categories_sum = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/categories_sum.csv")
+success_rate_cat_perc = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/success_rate_cat_perc.csv")
+success_rate_month_perc = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/success_rate_month_perc.csv")
+con = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/conlolol.csv")
 
 ########################################## INTERACTIVE COMPONENTS ##########################################
 cat_options = [dict(label=category, value = category) for category in categories_sum.main_category.unique()]
@@ -31,8 +35,8 @@ app.layout = html.Div([
              ]),
         html.Div([#Slider
             dcc.Slider( id = "year_slider",
-                min=df.year.min(),
-                max=df.year.max(),
+                min=categories_sum.year.min(),
+                max=categories_sum.year.max(),
                 step=None,
                 marks={str(year): str(year) for year in df['year'].sort_values().unique()},
                 value = df['year'].max())

@@ -187,7 +187,7 @@ df2 = df.merge(con["success_rank"], left_on="main_category", right_on=con.index)
 
 categories_sum = pd.pivot_table(df,
                                 values=["usd_pledged_real"],
-                                index=["main_category", "category"],
+                                index=["main_category", "category","year"],
                                 aggfunc="sum")
 
 
