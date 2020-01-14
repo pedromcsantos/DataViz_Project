@@ -54,8 +54,7 @@ app.layout = html.Div([
             dcc.Dropdown(
             id='cat_drop',
             options=cat_options,
-            value=['Games'],
-            multi=True
+            value='Games'
             )
             ]),
             html.Div([#linechart
@@ -67,8 +66,8 @@ app.layout = html.Div([
         ],className = 'pretty four columns'), #end of pretty 8 cols
     ], className = 'row flex-display'),#end of row 1 flex display
     html.Div([# Parallel last row
-    dcc.Graph(id="parallel")
-    ], className = "row flex-display"),
+        dcc.Graph(id="parallel")
+        ], className = "row flex-display"),
 ],style={"display": "flex", "flex-direction": "column"},
 )
 
@@ -160,14 +159,16 @@ def plots(year,cat):
     )
 
     ########### linechart ###########
-    success_rate_month_perc_0 = success_rate_month_perc[success_rate_month_perc.main_category == cat]
+    success_rate_month_perc_0 = success_rate_month_perc.loc[success_rate_month_perc.main_category == cat]
 
     x = success_rate_month_perc_0['month name']
     y = success_rate_month_perc_0['successful']
 
     data_line=go.Scatter(x=x, y=y, mode='lines+markers')
+    best_month = success_rate_month_perc_0.loc[success_rate_month_perc_0["successful"] == success_rate_month_perc_0["successful"].max()]["month name"]
+    best_month = best_month.to_string(index = False)
 
-    layout_line=go.Layout(title='April is best month to start a Project', xaxis_title='Month', yaxis_title='Success Rate')
+    layout_line=go.Layout(title= best_month+' is the best month to start a project in '+ cat, xaxis_title='Month', yaxis_title='Success Rate')
 
     ########### parallel ###########
     data_parallel=go.Parcoords(
@@ -176,7 +177,7 @@ def plots(year,cat):
             dict(range=[1, 15],
                  label='Amount of Projects Ranking', values=con['projects_rank'],
                  tickvals=list(range(1, 16)),
-                 ticktext=con["projects_rank"].sort_values().index),
+                 ticktext=con["projects_rank"].sort_values()["main_category"]),
             dict(range=[1, 15],
                  label='Backers Ranking', values=con['backers_rank']),
             dict(range=[1, 15],
@@ -186,7 +187,7 @@ def plots(year,cat):
             dict(range=[1, 15],
                  label='Success Rate Ranking', values=con['success_rank'],
                  tickvals=list(range(1, 16)),
-                 ticktext=con["success_rank"].sort_values().index)]))
+                 ticktext=con["success_rank"].sort_values()["main_category"])]))
 
     return go.Figure(data=data_sunburst), \
            go.Figure(data=data_bubble, layout=layout_bubble),\
