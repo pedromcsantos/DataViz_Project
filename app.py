@@ -35,11 +35,11 @@ app.layout = html.Div([
              ]),
         html.Div([#Slider
             dcc.Slider( id = "year_slider",
-                min=categories_sum.year.min(),
-                max=categories_sum.year.max(),
+                min=2009,
+                max=2017,
                 step=None,
-                marks={str(year): str(year) for year in df['year'].sort_values().unique()},
-                value = df['year'].max())
+                marks={str(year): str(year) for year in categories_sum['year'].sort_values().unique()},
+                value = 2017)
              ]),
     html.Div([ #right side
         html.Div([#Flash Cards
