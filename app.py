@@ -10,7 +10,7 @@ import plotly.graph_objs as go
 import plotly.offline as pyo
 import calendar
 import random
-from sklearn.preprocessing import MinMaxScaler
+
 
 ########################################## DATA PREPROCESSING ##########################################
 df_all_trees = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/df_all_trees.csv")
