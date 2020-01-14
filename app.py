@@ -29,45 +29,49 @@ server = app.server
 app.layout = html.Div([
     html.Div([
         html.H1('Kickstarter Projects - Data Visualization')], className='Title'),
-    html.Div([# Left side division
-        html.Div([dcc.Graph(id = "sunburst")], className = "column1"),
-        html.Div([dcc.Graph(id="bubble")], className = "column1"),
-             ]),
-        html.Div([#Slider
-            dcc.Slider( id = "year_slider",
-                min=2009,
-                max=2017,
-                step=None,
-                marks={str(year): str(year) for year in categories_sum['year'].sort_values().unique()},
-                value = 2017)
-             ]),
-    html.Div([ #right side
-        html.Div([#Flash Cards
-            html.Div([html.Label(id='fc_1')], className='mini pretty'),
-            html.Div([html.Label(id='fc_2')], className='mini pretty'),
-            html.Div([html.Label(id='fc_3')], className='mini pretty'),
-            html.Div([html.Label(id='fc_4')], className='mini pretty'),
-        ], className = "column2"),
-        html.Div([#Bar chart
-            dcc.Graph(id="linechart")
-         ], className = "column2"),
-        html.Div([#linechart
-            dcc.Graph(id = "barchart")
-        ], className = "column2"),
-        html.Div([#Drop down
+            html.H3("Explore startups", style={"margin-top": "0px"}),
+    html.Div([# start row 1 flex display
+        html.Div([
+            html.Div([dcc.Graph(id = "sunburst")], className ='pretty_container'),
+            html.Div([dcc.Graph(id="bubble")], className ='pretty_container'),
+            html.Div([#Slider
+                dcc.Slider(id="year_slider",
+                           min=2009,
+                           max=2017,
+                           step=None,
+                           marks={str(year): str(year) for year in categories_sum['year'].sort_values().unique()},
+                           value=2017)
+                ]),
+        ],className='pretty eight columns'),
+        html.Div([ #start right side pretty 8 cols
+            html.Div([#container for 4 flashcards
+                html.Div([html.Label(id='fc_1')], className='mini_container'),
+                html.Div([html.Label(id='fc_2')], className='mini_container'),
+                html.Div([html.Label(id='fc_3')], className='mini_container'),
+                html.Div([html.Label(id='fc_4')], className='mini_container'),
+            ], className ='row container-display'),
+            html.Div([#Drop down
             dcc.Dropdown(
-                id='cat_drop',
-                options=cat_options,
-                value=['Games'],
-                multi=True
-                )
-             ])
-    ]),
+            id='cat_drop',
+            options=cat_options,
+            value=['Games'],
+            multi=True
+            )
+            ]),
+            html.Div([#linechart
+            dcc.Graph(id="linechart")
+            ], className ='pretty_container'),
+            html.Div([#barchart
+            dcc.Graph(id = "barchart")
+            ], className = "pretty_container"),
+        ],className = 'pretty four columns'), #end of pretty 8 cols
+    ], className = 'row flex-display'),#end of row 1 flex display
     html.Div([# Parallel last row
-        dcc.Graph(id="parallel")
-         ], className = "column3")
+    dcc.Graph(id="parallel")
+    ], className = "row flex-display"),
+],style={"display": "flex", "flex-direction": "column"},
+)
 
-])
 
 ########################################## CALL BACKS ##########################################
 
