@@ -217,6 +217,7 @@ cat_options = [dict(label=category, value = category) for category in df.main_ca
 
 ########################################## APP ##########################################
 app = dash.Dash(__name__)
+server = app.server
 
 app.layout = html.Div([
     html.Div([
