@@ -37,9 +37,11 @@ app.layout = html.Div([
                  style={'width': '15%'}),
         html.Div([
             html.H1('Kickstarter Projects')], className='Title',style={'color':'#FFFFFF','font-family': "Verdana",'width': '85%'}),
-            html.H3("Explore the Industries", style={"margin-top": "0px", 'color':'#FFFFFF'}),
             html.H3("Measuring Success and Failure", style={"margin-top": "0px", 'color':'#FFFFFF'}),
         ],className = 'row container-display'),
+        html.Div([
+            html.H3("Explore the Industries", style={"margin-top": "0px", 'color':'#FFFFFF', 'margin-bottom':'0px', 'text-align':'center'}),
+        ]),
 
     html.Div([# start row 1 flex display
         html.Div([html.Div([dcc.Graph(id = "sunburst")], className ='pretty')], style={'width': '40%', 'display': 'inline-block'}),
@@ -158,7 +160,7 @@ def plots(year,cat):
         yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         title = "Amount of yearly investment by subcategory",
         paper_bgcolor="#2b2b2b",
-        plot_bgcolor="#2b2b2b",font=dict(color="#ffffff")
+        plot_bgcolor="#2b2b2b",font=dict(color="#ffffff"), margin=dict(b = 5)
         )
     ########### barchart ###########
     data_bar = [
