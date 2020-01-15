@@ -89,7 +89,8 @@ success_rate_cat_perc = success_rate_cat_perc.reset_index()
 
 #Calculations for Flashcards
 df3 = df[df["state"]=="successful"]
-max_money = df3[["main_category",'usd_pledged_real']].groupby("main_category").max().reset_index()
+max_money = df3[["main_category",'usd_pledged_real']].groupby(["main_category"]).max().reset_index()
+max_money = max_money.merge(df3[["name","usd_pledged_real"]], left_on="usd_pledged_real",right_on="usd_pledged_real")
 min_money = df3[["main_category",'usd_pledged_real']][df3.usd_pledged_real>0].groupby("main_category").min().reset_index()
 average_money = df3[["main_category",'usd_pledged_real']].groupby("main_category").mean().reset_index()
 
@@ -208,6 +209,7 @@ categories_sum["y"] = [random.uniform(1, 20) for i in categories_sum.index]
 categories_sum.reset_index(inplace=True)
 categories_sum = categories_sum.merge(con[["main_category","success_rank"]], left_on="main_category", right_on="main_category")
 
+top_20= df.sort_values(by= 'usd_pledged_real', ascending=False).head(20)
 
 #### Uncomment next session to get csv
 """
