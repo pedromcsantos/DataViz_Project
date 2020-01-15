@@ -33,49 +33,63 @@ server = app.server
 
 app.layout = html.Div([
     html.Div([
-        html.H1('Kickstarter Projects - Data Visualization')], className='Title'),
-            html.H3("Explore startups", style={"margin-top": "0px"}),
-    html.Div([# start row 1 flex display
+        html.Div([html.Img(src='https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/kickstarter-online-share-social-icon-290c27462fcd11ee7b4a6cbd9c1a46a9.png')],
+                 style={'width': '15%'}),
         html.Div([
-            html.Div([dcc.Graph(id = "sunburst")], className ='pretty_container'),
-            html.Div([dcc.Graph(id="bubble")], className ='pretty_container'),
-            html.Div([#Slider
-                dcc.Slider(id="year_slider",
-                           min=2009,
-                           max=2017,
-                           step=None,
-                           marks={str(year): str(year) for year in categories_sum['year'].sort_values().unique()},
-                           value=2017)
-                ]),
-        ],className='pretty eight columns'),
-        html.Div([ #start right side pretty 8 cols
-            html.Div([#container for 4 flashcards
-                html.Div([dcc.Graph(id='fc_1')], className='mini_container'),
-                html.Div([dcc.Graph(id='fc_2')], className='mini_container'),
-                html.Div([dcc.Graph(id='fc_3')], className='mini_container'),
-                html.Div([dcc.Graph(id='fc_4')], className='mini_container'),
-            ], className ='row container-display'),
-            html.Div([#Drop down
-            dcc.Dropdown(
-            id='cat_drop',
-            options=cat_options,
-            value='Games'
-            )
-            ]),
-            html.Div([#linechart
-            dcc.Graph(id="linechart")
-            ], className ='pretty_container'),
-            html.Div([#barchart
-            dcc.Graph(id = "barchart")
-            ], className = "pretty_container"),
-        ],className = 'pretty four columns'), #end of pretty 8 cols
-    ], className = 'row flex-display'),#end of row 1 flex display
-    html.Div([# Parallel last row
-        dcc.Graph(id="parallel")
-        ], className = "row flex-display"),
-],style={"display": "flex", "flex-direction": "column"},
-)
+            html.H1('Kickstarter Projects')], className='Title',style={'color':'#FFFFFF','font-family': "Verdana",'width': '85%'}),
+            html.H3("Choose your project", style={"margin-top": "0px", 'color':'#FFFFFF'}),
+        ],className = 'row container-display'),
 
+    html.Div([# start row 1 flex display
+        html.Div([html.Div([dcc.Graph(id = "sunburst")], className ='pretty')], style={'width': '40%', 'display': 'inline-block'}),
+        html.Div([html.Div([dcc.Graph(id = "barchart")], className ='pretty')],style={'width': '60%', 'float': 'right', 'display': 'inline-block'}),
+    ],className ='row container-display'),
+
+    html.Br(),
+
+    html.P('Filter by Category: ',style={'color':"#ffffff"}),
+
+    html.Div([dcc.Dropdown(
+    id='cat_drop',
+    options=cat_options,
+    value='Games'
+    )
+    ],className='pretty', style={'background-color':'#98f5ff'}),
+
+    html.Br(),
+
+    html.Div([
+        html.Div([dcc.Graph(id='fc_1')], className='pretty column',style={'width': '24.6%', 'height':'30%','display': 'inline'}),
+        html.Div([dcc.Graph(id='fc_2')], className='pretty column',style={'width': '24.5%', 'height':'30%','float': 'right', 'display': 'inline'}),
+        html.Div([dcc.Graph(id='fc_3')], className='pretty column',style={'width': '24.5%','height':'30%','float': 'right', 'display': 'inline'}),
+        html.Div([dcc.Graph(id='fc_4')], className='pretty column',style={'width': '24.6%','height':'30%','float': 'right', 'display': 'inline'}),
+    ],className ='row container-display'),
+
+    html.Br(),
+
+    html.Div([html.Div([dcc.Graph(id="linechart")], className ='pretty')], style={'width': '100%', 'float': 'right', 'display': 'inline-block'}),
+
+    html.Br(),
+
+    html.Div([html.Div([dcc.Graph(id="bubble")], className ='pretty')],style={'width': '100%', 'float': 'right', 'display': 'inline-block'}),
+
+    html.Br(),
+
+    html.P('Filter by Year: ',style={'color':"#ffffff"}),
+
+    html.Div([dcc.Slider( id = "year_slider",
+                min=2009,
+                max=2017,
+                step=None,
+                marks={str(year): str(year) for year in categories_sum['year'].sort_values().unique()},
+                value=2017)], style={'width': '100%', 'float': 'right', 'display': 'inline-block'}),
+
+    html.Br(),
+
+    html.Div([html.Div([dcc.Graph(id="parallel")], className ='pretty')],style={'width': '100%', 'float': 'right', 'display': 'inline-block'}),
+
+],style={"display": "flex", "flex-direction": "column"}
+)
 
 ########################################## CALL BACKS ##########################################
 
@@ -106,22 +120,24 @@ def plots(year,cat):
         opacity=0.8,
         marker=dict(reversescale=True,
             colors=df_all_trees['color'],
-            colorscale='ice',
+            colorscale='Viridis',
             showscale=True,  # 'GnBu'
             cmin=con["usd_pledged_real"].sum()/con["backers"].sum()),
         hovertemplate='<b>%{label} </b> <br> Backers: %{value}<br> Per Backer: %{color:.2f}',
-        maxdepth=2
+        maxdepth=2,
+        name=''
     )
 
     layout_sunburst = go.Layout(
         title= "Category size by number of backers",
         paper_bgcolor="#2b2b2b",
         plot_bgcolor="#2b2b2b",font=dict(color="#ffffff")
+        #plot_margin='0'
     )
 
     ########### Bubble ###########
     categories_sum_0 = categories_sum.loc[categories_sum["year"] <= year]
-    data_bubble=[go.Scatter(
+    data_bubble=[go.Scatter(showlegend=True,
         x=categories_sum_0["x"],
         y=categories_sum_0["y"],
         mode='markers',
@@ -149,7 +165,7 @@ def plots(year,cat):
             y=success_rate_cat_perc.failed,
             base=0,
             marker=dict(
-                color='#cc0000'
+                color='#990000'
             ),
             name='Failure',
             yaxis='y2'
@@ -159,7 +175,7 @@ def plots(year,cat):
             y=success_rate_cat_perc.successful,
             base=0,
             marker=dict(
-                color='#00802b'
+                color='rgb(109,205,89)'
             ),
             name='Successful'
         )
@@ -173,7 +189,12 @@ def plots(year,cat):
         yaxis=dict(range=[-100, 100], tickvals=np.arange(0, 101, 20), tickmode='array',
                    title='Percentage of Failure/Success'),
         paper_bgcolor="#2b2b2b",
-        plot_bgcolor="#2b2b2b",font=dict(color="#ffffff")
+        plot_bgcolor="#2b2b2b",font=dict(color="#ffffff"),
+        legend=dict(
+            x=1,
+            y=1.0,
+            bgcolor="#2b2b2b",
+            bordercolor="#2b2b2b")
     )
 
     ########### linechart ###########
@@ -182,7 +203,7 @@ def plots(year,cat):
     x = success_rate_month_perc_0['month name']
     y = success_rate_month_perc_0['successful']
 
-    data_line=go.Scatter(x=x, y=y, mode='lines+markers')
+    data_line=go.Scatter(x=x, y=y, mode='lines+markers',marker=dict(color="rgb(109,205,89)"))
     best_month = success_rate_month_perc_0.loc[success_rate_month_perc_0["successful"] == success_rate_month_perc_0["successful"].max()]["month name"]
     best_month = best_month.to_string(index = False)
 
@@ -192,7 +213,7 @@ def plots(year,cat):
 
     ########### parallel ###########
     data_parallel=go.Parcoords(labelfont = dict(color="white"), rangefont=dict(color="white"),
-        line=dict(color=con["success_rank"], colorscale="Electric"),
+        line=dict(color=con["success_rank"], colorscale="Viridis"),
         dimensions=list([
             dict(range=[1, 15],
                  label='Amount of Projects Ranking', values=con['projects_rank'],
@@ -234,6 +255,8 @@ def plots(year,cat):
         value=int(min_money_0["usd_pledged_real"]),
         domain={'row': 0, 'column': 1})
 
+    layout_fc = go.Layout(height = 120)
+
     #Flash Card 3
     longest_0  =longest.loc[longest.main_category == cat]
     fc_3 = go.Indicator(
@@ -252,17 +275,16 @@ def plots(year,cat):
         value=int(shortest_0["minutes"]),
         domain={'row': 1, 'column': 0})
 
-    layout_fc4 = go.Layout(height = 240)
 
     return go.Figure(data=data_sunburst, layout= layout_sunburst), \
            go.Figure(data=data_bubble, layout=layout_bubble),\
            go.Figure(data=data_bar, layout=layout_bar),\
            go.Figure(data=data_line, layout=layout_line),\
            go.Figure(data=data_parallel, layout=layout_parallel),\
-           go.Figure(data=fc_1), \
-           go.Figure(data=fc_2),\
-           go.Figure(data=fc_3),\
-           go.Figure(data=fc_4, layout = layout_fc4)
+           go.Figure(data=fc_1,layout=layout_fc), \
+           go.Figure(data=fc_2,layout=layout_fc),\
+           go.Figure(data=fc_3,layout=layout_fc),\
+           go.Figure(data=fc_4,layout=layout_fc)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
