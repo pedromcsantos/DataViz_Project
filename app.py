@@ -36,11 +36,11 @@ app.layout = html.Div([
         html.Div([html.Img(src='https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/kickstarter-online-share-social-icon-290c27462fcd11ee7b4a6cbd9c1a46a9.png')],
                  style={'width': '15%'}),
         html.Div([
-            html.H1('Kickstarter Projects')], className='Title',style={'color':'#FFFFFF','font-family': "Verdana",'width': '85%'}),
-            html.H3("Measuring Success and Failure", style={"margin-top": "0px", 'color':'#FFFFFF'}),
+            html.H1('Kickstarter Projects')], className='Title',style={'color':'white','font-family': "Verdana",'width': '85%', "margin-top":"0px", "margin-bottom":"0px"}),
+            html.H5("Measuring Success and Failure", style={"margin-top": "0px", 'color':'white'}),
         ],className = 'row container-display'),
         html.Div([
-            html.H3("Explore the Industries", style={"margin-top": "0px", 'color':'#FFFFFF', 'margin-bottom':'0px', 'text-align':'center'}),
+            html.H3("Explore the Industries", style={"margin-top": "0px", 'color':'white', 'margin-bottom':'0px', 'text-align':'center', 'font-style':'italic'}),
         ]),
 
     html.Div([# start row 1 flex display
@@ -147,7 +147,7 @@ def plots(year,cat):
         mode='markers',
         text="TITLE", textposition="top center",
         marker=dict(colorscale="viridis", showscale=True,
-            colorbar=dict(title="Main Category", tickvals=list(range(1, 16)),
+            colorbar=dict(title="Category", lenmode = "pixels", tickvals=list(range(1, 16)),
             ticklen=5,
             ticktext=categories_sum_0.sort_values("success_rank")["main_category"].unique()),
             color=categories_sum_0.success_rank,

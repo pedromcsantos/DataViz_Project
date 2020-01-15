@@ -231,4 +231,3 @@ shortest.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\
 longest.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\longest.csv")
 
 """
-
