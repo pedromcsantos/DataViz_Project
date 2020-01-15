@@ -124,15 +124,15 @@ def plots(year,cat):
         marker=dict(reversescale=True,
             colors=df_all_trees['color'],
             colorscale='Viridis',
-            showscale=True,  # 'GnBu'
+            showscale=True, colorbar=dict(title="Amount"+"<br>"+ "per" + "<br>"+ "Backer"), # 'GnBu'
             cmin=con["usd_pledged_real"].sum()/con["backers"].sum()),
-        hovertemplate='<b>%{label} </b> <br> Backers: %{value}<br> Per Backer/Supporter: %{color:.2f}',
+        hovertemplate='<b>%{label} </b> <br> Backers: %{value}<br> Per Backer: %{color:.2f}',
         maxdepth=2,
         name=''
     )
 
     layout_sunburst = go.Layout(
-        title= "Category size by number of backers",
+        title= "Category size by number of Backers/Supporter",
         paper_bgcolor="#2b2b2b",
         plot_bgcolor="#2b2b2b",font=dict(color="#ffffff")
         #plot_margin='0'
@@ -147,7 +147,7 @@ def plots(year,cat):
         mode='markers',
         text="TITLE", textposition="top center",
         marker=dict(colorscale="viridis", showscale=True,
-            colorbar=dict(title="Category", lenmode = "pixels", tickvals=list(range(1, 16)),
+            colorbar=dict(title="Category", len = 1.5, tickvals=list(range(1, 16)),
             ticklen=5,
             ticktext=categories_sum_0.sort_values("success_rank")["main_category"].unique()),
             color=categories_sum_0.success_rank,
