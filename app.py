@@ -137,7 +137,8 @@ def plots(year,cat):
 
     ########### Bubble ###########
     categories_sum_0 = categories_sum.loc[categories_sum["year"] <= year]
-    data_bubble=[go.Scatter(showlegend=True,
+
+    data_bubble=[go.Scatter(
         x=categories_sum_0["x"],
         y=categories_sum_0["y"],
         mode='markers',
@@ -149,7 +150,7 @@ def plots(year,cat):
             color=categories_sum_0.success_rank,
             size=(categories_sum_0["pledged_minmax"])
             ),
-        hovertext=categories_sum_0["category"] + "<br>" + round(categories_sum_0["usd_pledged_real"] / 1000000, 1).map(str) + "M $",
+        hovertext=categories_sum_0["category"] + "<br>" + round(categories_sum_0["usd_pledged_real"] / 1000000, 1).map(str) + "M $" + "<br>" + categories_sum_0["year"].map(str),
         hoverinfo="text")]
     layout_bubble=go.Layout(
         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
