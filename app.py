@@ -198,22 +198,54 @@ def plots(year,cat):
                  tickvals=list(range(1, 16)),
                  ticktext=con[["success_rank","main_category"]].sort_values("success_rank")["main_category"])]))
     #Flash Card 1
-    max_money_0 = max_money.loc[max_money.index == cat]
-    avg_money  = average_money.loc[average_money.index == cat]
+    max_money_0 = max_money.loc[max_money.main_category == cat]
+    avg_money  = average_money.loc[average_money.main_category == cat]
     fc_1 = go.Indicator(
         mode = "number+delta",
         number={'prefix': "$"},
         title = "Maximum Investment",
-        delta={'reference': avg_money},
-        value = max_money_0,
+        delta={'reference': int(avg_money["usd_pledged_real"])},
+        value = int(max_money_0["usd_pledged_real"]),
         domain = {'row': 0, 'column': 0})
+
+    #Flash Card 2
+    min_money_0 = min_money.loc[min_money.main_category == cat]
+    fc_2 = go.Indicator(
+        mode="number+delta",
+        number={'prefix': "$"},
+        delta={'reference':  int(avg_money["usd_pledged_real"])},
+        title="Minimum Investment",
+        value=int(min_money_0["usd_pledged_real"]),
+        domain={'row': 0, 'column': 1})
+
+    #Flash Card 3
+    longest_0  =longest.loc[longest.main_category == cat]
+    fc_3 = go.Indicator(
+        mode="number",
+        number={'suffix': " Days"},
+        title="Longest Project Duration",
+        value=int(longest_0["days"]),
+        domain={'row': 1, 'column': 1})
+
+    #Flash Card 4
+    shortest_0 = shortest.loc[shortest.main_category == cat]
+    fc_4 = go.Indicator(
+        mode="number",
+        number={'suffix': " Minutes"},
+        title="Shortest Project Duration",
+        value=int(shortest_0["minutes"]),
+        domain={'row': 1, 'column': 0})
+
 
     return go.Figure(data=data_sunburst), \
            go.Figure(data=data_bubble, layout=layout_bubble),\
            go.Figure(data=data_bar, layout=layout_bar),\
            go.Figure(data=data_line, layout=layout_line),\
            go.Figure(data=data_parallel),\
-           go.Figure(data=fc_1)
+           go.Figure(data=fc_1), \
+           go.Figure(data=fc_2),\
+           go.Figure(data=fc_3),\
+           go.Figure(data=fc_4)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
