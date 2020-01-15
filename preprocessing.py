@@ -88,12 +88,13 @@ success_rate_cat_perc.successful = pd.Series(["{0:.2f}%".format(val * 100) for v
 success_rate_cat_perc = success_rate_cat_perc.reset_index()
 
 #Calculations for Flashcards
-max_money = df['usd_pledged_real'].max()
-avg_money = df['usd_pledged_real'].mean()
-min_money = df.usd_pledged_real[df['usd_pledged_real']>0].min()
+df3 = df[df["state"]=="successful"]
+max_money = df3[["main_category",'usd_pledged_real']].groupby("main_category").max().reset_index()
+min_money = df3[["main_category",'usd_pledged_real']][df3.usd_pledged_real>0].groupby("main_category").min().reset_index()
+average_money = df3[["main_category",'usd_pledged_real']].groupby("main_category").mean().reset_index()
 
-shortest = df["minutes"][df["minutes"]>0].min()
-longest = df["days"].max()
+shortest = df3[["main_category",'minutes']][df3["minutes"]>0].groupby("main_category").min().reset_index()
+longest = df3[["main_category",'days']].groupby("main_category").max().reset_index()
 
 
 #add column month name
@@ -209,7 +210,7 @@ categories_sum = categories_sum.merge(con[["main_category","success_rank"]], lef
 
 
 #### Uncomment next session to get csv
-
+"""
 df_all_trees.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\df_all_trees.csv")
 
 categories_sum.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\categories_sum.csv")
@@ -219,4 +220,12 @@ success_rate_cat_perc.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\
 success_rate_month_perc.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\success_rate_month_perc.csv")
 
 con.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\conlolol.csv")
+
+#flash cards
+max_money.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\max_money.csv")
+min_money.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\min_money.csv")
+average_money.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\average_money.csv")
+shortest.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\shortest.csv")
+longest.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\longest.csv")
+
 """

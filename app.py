@@ -104,16 +104,18 @@ def plots(year,cat):
         values=df_all_trees['value'],
         branchvalues='total',
         opacity=0.8,
-        marker=dict(
+        marker=dict(reversescale=True,
             colors=df_all_trees['color'],
             colorscale='ice',
-            showscale=False,  # 'GnBu'
+            showscale=True,  # 'GnBu'
             cmin=con["usd_pledged_real"].sum()/con["backers"].sum()),
         hovertemplate='<b>%{label} </b> <br> Backers: %{value}<br> Per Backer: %{color:.2f}',
         maxdepth=2
     )
 
-    #layout_sunburst = margin=dict(t=5, b=5, r=5, l=5)
+    layout_sunburst = go.Layout(
+        title= "Category size by number of backers"
+    )
 
     ########### Bubble ###########
     categories_sum_0 = categories_sum.loc[categories_sum["year"] == year]
@@ -121,7 +123,7 @@ def plots(year,cat):
         x=categories_sum_0["x"],
         y=categories_sum_0["y"],
         mode='markers',
-        text=round(categories_sum_0["usd_pledged_real"] / 1000, 0), textposition="top center",
+        text="TITLE", textposition="top center",
         marker=dict(colorscale="viridis", showscale=True,
             colorbar=dict(title="Main Category", tickvals=list(range(1, 16)),
             ticklen=5,
@@ -133,7 +135,8 @@ def plots(year,cat):
         hoverinfo="text")]
     layout_bubble=go.Layout(
         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False)
+        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        title = "Amount of yearly investment by subcategory"
         )
     ########### barchart ###########
     data_bar = [
@@ -161,7 +164,7 @@ def plots(year,cat):
     layout_bar=go.Layout(
         yaxis2=dict(rangemode='nonnegative', overlaying='y', range=[100, -100],
                     tickvals=np.arange(0, 101, 20), tickmode='array'),
-        title='Success vs Failure', xaxis=dict(title='Categories'),
+        title='Percentage of Successful and Failure projects by subcategory', xaxis=dict(title='Categories'),
         barmode='stack',
         yaxis=dict(range=[-100, 100], tickvals=np.arange(0, 101, 20), tickmode='array',
                    title='Percentage of Failure/Success')
@@ -177,7 +180,7 @@ def plots(year,cat):
     best_month = success_rate_month_perc_0.loc[success_rate_month_perc_0["successful"] == success_rate_month_perc_0["successful"].max()]["month name"]
     best_month = best_month.to_string(index = False)
 
-    layout_line=go.Layout(title= best_month+' is the best month to start a project in '+ cat, xaxis_title='Month', yaxis_title='Success Rate')
+    layout_line=go.Layout(title= 'Success rate by launch month'+ '<br>' +best_month+' is the best month to start a project in '+ cat + '.', xaxis_title='Month', yaxis_title='Success Rate')
 
     ########### parallel ###########
     data_parallel=go.Parcoords(
@@ -197,13 +200,17 @@ def plots(year,cat):
                  label='Success Rate Ranking', values=con['success_rank'],
                  tickvals=list(range(1, 16)),
                  ticktext=con[["success_rank","main_category"]].sort_values("success_rank")["main_category"])]))
+
+    layout_parallel = go.Layout(
+        title= "Category Rankings (15 = Best)"
+    )
     #Flash Card 1
     max_money_0 = max_money.loc[max_money.main_category == cat]
     avg_money  = average_money.loc[average_money.main_category == cat]
     fc_1 = go.Indicator(
         mode = "number+delta",
-        number={'prefix': "$"},
-        title = "Maximum Investment",
+        number={'prefix': "$", 'font':{'size':25}},
+        title = {'text':"Maximum Investment", 'font':{'size':20}},
         delta={'reference': int(avg_money["usd_pledged_real"])},
         value = int(max_money_0["usd_pledged_real"]),
         domain = {'row': 0, 'column': 0})
@@ -212,9 +219,9 @@ def plots(year,cat):
     min_money_0 = min_money.loc[min_money.main_category == cat]
     fc_2 = go.Indicator(
         mode="number+delta",
-        number={'prefix': "$"},
+        number={'prefix': "$", 'font':{'size':25}},
         delta={'reference':  int(avg_money["usd_pledged_real"])},
-        title="Minimum Investment",
+        title={'text':"Minimum Investment",'font':{'size':20}},
         value=int(min_money_0["usd_pledged_real"]),
         domain={'row': 0, 'column': 1})
 
@@ -222,8 +229,8 @@ def plots(year,cat):
     longest_0  =longest.loc[longest.main_category == cat]
     fc_3 = go.Indicator(
         mode="number",
-        number={'suffix': " Days"},
-        title="Longest Project Duration",
+        number={'suffix': " Days",'font':{'size':25}},
+        title={"text":"Longest Project", 'font':{'size':20}},
         value=int(longest_0["days"]),
         domain={'row': 1, 'column': 1})
 
@@ -231,17 +238,18 @@ def plots(year,cat):
     shortest_0 = shortest.loc[shortest.main_category == cat]
     fc_4 = go.Indicator(
         mode="number",
-        number={'suffix': " Minutes"},
-        title="Shortest Project Duration",
+        number={'suffix': " Minutes", 'font':{'size':25}},
+        title={"text":"Shortest Project",'font':{'size':20}},
         value=int(shortest_0["minutes"]),
         domain={'row': 1, 'column': 0})
 
 
-    return go.Figure(data=data_sunburst), \
+
+    return go.Figure(data=data_sunburst, layout= layout_sunburst), \
            go.Figure(data=data_bubble, layout=layout_bubble),\
            go.Figure(data=data_bar, layout=layout_bar),\
            go.Figure(data=data_line, layout=layout_line),\
-           go.Figure(data=data_parallel),\
+           go.Figure(data=data_parallel, layout=layout_parallel),\
            go.Figure(data=fc_1), \
            go.Figure(data=fc_2),\
            go.Figure(data=fc_3),\
