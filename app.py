@@ -18,6 +18,10 @@ categories_sum = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/Da
 success_rate_cat_perc = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/success_rate_cat_perc.csv")
 success_rate_month_perc = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/success_rate_month_perc.csv")
 con = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/conlolol.csv")
+max_money=pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/max_money.csv")
+min_money=pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/min_money.csv")
+shortest=pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/shortest.csv")
+longest=pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/longest.csv")
 
 ########################################## INTERACTIVE COMPONENTS ##########################################
 cat_options = [dict(label=category, value = category) for category in categories_sum.main_category.unique()]
@@ -80,7 +84,11 @@ app.layout = html.Div([
         Output("bubble","figure"),
         Output("barchart","figure"),
         Output("linechart","figure"),
-        Output("parallel","figure")
+        Output("parallel","figure"),
+        Output("fc_1","figure"),
+        Output("fc_2","figure"),
+        Output("fc_3","figure"),
+        Output("fc_4","figure")
     ],
     [
         Input("year_slider", "value"),
@@ -188,6 +196,15 @@ def plots(year,cat):
                  label='Success Rate Ranking', values=con['success_rank'],
                  tickvals=list(range(1, 16)),
                  ticktext=con[["success_rank","main_category"]].sort_values("success_rank")["main_category"])]))
+    #Flash Card 1
+    max_money_0 = max_money[max_money_index == cat]
+    fc_1 = go.Indicator(
+        mode = "number+delta",
+        number={'prefix': "$"},
+        title = "Maximum Investment",
+        delta={'reference': avg_money},
+        value = max_money_0,
+        domain = {'row': 0, 'column': 0})
 
     return go.Figure(data=data_sunburst), \
            go.Figure(data=data_bubble, layout=layout_bubble),\
