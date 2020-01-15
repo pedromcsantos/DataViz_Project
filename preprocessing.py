@@ -204,12 +204,12 @@ categories_sum = categories_sum.merge(categories_sum2, left_index=True, right_in
 random.seed(17)
 categories_sum["x"] = [random.uniform(1, 20) for i in categories_sum.index]
 categories_sum["y"] = [random.uniform(1, 20) for i in categories_sum.index]
-
+categories_sum.reset_index(inplace=True)
 categories_sum = categories_sum.merge(con[["main_category","success_rank"]], left_on="main_category", right_on="main_category")
 
 
 #### Uncomment next session to get csv
-"""
+
 df_all_trees.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\df_all_trees.csv")
 
 categories_sum.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\categories_sum.csv")
