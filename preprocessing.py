@@ -184,8 +184,8 @@ con["backers_rank"] = con["backers"].rank(ascending=True)
 con["projects_rank"] = con["counter"].rank(ascending=True)
 con["usd_pledged_rank"] = con["usd_pledged_real"].rank(ascending=True)
 con["amnt_per_backer_rank"] = con["amnt_per_backer"].rank(ascending=True)
-
-df2 = df.merge(con["success_rank"], left_on="main_category", right_on=con.index)
+con.reset_index(inplace = True)
+df2 = df.merge(con["success_rank"], left_on="main_category", right_on="main_category")
 
 categories_sum = pd.pivot_table(df,
                                 values=["usd_pledged_real"],
@@ -207,9 +207,7 @@ categories_sum["y"] = [random.uniform(1, 20) for i in categories_sum.index]
 
 categories_sum = categories_sum.merge(con.success_rank, left_index=True, right_index=True)
 
-
 categories_sum.reset_index(inplace=True)
-
 
 #### Uncomment next session to get csv
 """

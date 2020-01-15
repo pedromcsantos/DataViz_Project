@@ -177,7 +177,7 @@ def plots(year,cat):
             dict(range=[1, 15],
                  label='Amount of Projects Ranking', values=con['projects_rank'],
                  tickvals=list(range(1, 16)),
-                 ticktext=con["projects_rank"].sort_values()["main_category"]),
+                 ticktext=con[["main_category","projects_rank"]].sort_values("projects_rank")["main_category"]),
             dict(range=[1, 15],
                  label='Backers Ranking', values=con['backers_rank']),
             dict(range=[1, 15],
@@ -187,7 +187,7 @@ def plots(year,cat):
             dict(range=[1, 15],
                  label='Success Rate Ranking', values=con['success_rank'],
                  tickvals=list(range(1, 16)),
-                 ticktext=con["success_rank"].sort_values()["main_category"])]))
+                 ticktext=con[["success_rank","main_category"]].sort_values("success_rank")["main_category"])]))
 
     return go.Figure(data=data_sunburst), \
            go.Figure(data=data_bubble, layout=layout_bubble),\
