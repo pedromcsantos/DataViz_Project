@@ -1,16 +1,16 @@
-main_category,usd_pledged_real
-Art,1924018.0
-Comics,1254120.08
-Crafts,454717.53
-Dance,146075.97
-Design,20338986.27
-Fashion,1851033.0
-Film & Video,5764229.38
-Food,1927217.0
-Games,12393139.69
-Journalism,215487.75
-Music,1363037.0
-Photography,793266.77
-Publishing,866193.5
-Technology,6225354.98
-Theater,358548.01
+,main_category,usd_pledged_real
+0,Art,1924018.0
+1,Comics,1254120.08
+2,Crafts,454717.53
+3,Dance,146075.97
+4,Design,20338986.27
+5,Fashion,1851033.0
+6,Film & Video,5764229.38
+7,Food,1927217.0
+8,Games,12393139.69
+9,Journalism,215487.75
+10,Music,1363037.0
+11,Photography,793266.77
+12,Publishing,866193.5
+13,Technology,6225354.98
+14,Theater,358548.01

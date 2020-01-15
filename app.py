@@ -20,6 +20,7 @@ success_rate_month_perc = pd.read_csv("https://raw.githubusercontent.com/pedromc
 con = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/conlolol.csv")
 max_money=pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/max_money.csv")
 min_money=pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/min_money.csv")
+average_money = pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/average_money.csv")
 shortest=pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/shortest.csv")
 longest=pd.read_csv("https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/longest.csv")
 
@@ -49,10 +50,10 @@ app.layout = html.Div([
         ],className='pretty eight columns'),
         html.Div([ #start right side pretty 8 cols
             html.Div([#container for 4 flashcards
-                html.Div([html.Label(id='fc_1')], className='mini_container'),
-                html.Div([html.Label(id='fc_2')], className='mini_container'),
-                html.Div([html.Label(id='fc_3')], className='mini_container'),
-                html.Div([html.Label(id='fc_4')], className='mini_container'),
+                html.Div([dcc.Graph(id='fc_1')], className='mini_container'),
+                html.Div([dcc.Graph(id='fc_2')], className='mini_container'),
+                html.Div([dcc.Graph(id='fc_3')], className='mini_container'),
+                html.Div([dcc.Graph(id='fc_4')], className='mini_container'),
             ], className ='row container-display'),
             html.Div([#Drop down
             dcc.Dropdown(
@@ -197,7 +198,8 @@ def plots(year,cat):
                  tickvals=list(range(1, 16)),
                  ticktext=con[["success_rank","main_category"]].sort_values("success_rank")["main_category"])]))
     #Flash Card 1
-    max_money_0 = max_money[max_money_index == cat]
+    max_money_0 = max_money.loc[max_money.index == cat]
+    avg_money  = average_money.loc[average_money.index == cat]
     fc_1 = go.Indicator(
         mode = "number+delta",
         number={'prefix': "$"},
@@ -210,7 +212,8 @@ def plots(year,cat):
            go.Figure(data=data_bubble, layout=layout_bubble),\
            go.Figure(data=data_bar, layout=layout_bar),\
            go.Figure(data=data_line, layout=layout_line),\
-           go.Figure(data=data_parallel)
+           go.Figure(data=data_parallel),\
+           go.Figure(data=fc_1)
 
 if __name__ == '__main__':
     app.run_server(debug=True)

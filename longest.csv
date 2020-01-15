@@ -1,16 +1,16 @@
-main_category,days
-Art,91
-Comics,90
-Crafts,90
-Dance,90
-Design,90
-Fashion,91
-Film & Video,91
-Food,90
-Games,91
-Journalism,90
-Music,91
-Photography,91
-Publishing,90
-Technology,91
-Theater,91
+,main_category,days
+0,Art,91
+1,Comics,90
+2,Crafts,90
+3,Dance,90
+4,Design,90
+5,Fashion,91
+6,Film & Video,91
+7,Food,90
+8,Games,91
+9,Journalism,90
+10,Music,91
+11,Photography,91
+12,Publishing,90
+13,Technology,91
+14,Theater,91

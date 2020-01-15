@@ -1,16 +1,16 @@
-main_category,usd_pledged_real
-Art,0.0
-Comics,0.0
-Crafts,0.0
-Dance,0.0
-Design,0.0
-Fashion,0.0
-Film & Video,0.0
-Food,0.0
-Games,0.0
-Journalism,0.0
-Music,0.0
-Photography,0.0
-Publishing,0.0
-Technology,0.0
-Theater,0.0
+,main_category,usd_pledged_real
+0,Art,0.0
+1,Comics,0.0
+2,Crafts,0.0
+3,Dance,0.0
+4,Design,0.0
+5,Fashion,0.0
+6,Film & Video,0.0
+7,Food,0.0
+8,Games,0.0
+9,Journalism,0.0
+10,Music,0.0
+11,Photography,0.0
+12,Publishing,0.0
+13,Technology,0.0
+14,Theater,0.0

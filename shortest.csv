@@ -1,16 +1,16 @@
-main_category,minutes
-Art,120
-Comics,1380
-Crafts,420
-Dance,300
-Design,120
-Fashion,120
-Film & Video,240
-Food,180
-Games,240
-Journalism,420
-Music,60
-Photography,1320
-Publishing,60
-Technology,120
-Theater,300
+,main_category,minutes
+0,Art,120
+1,Comics,1380
+2,Crafts,420
+3,Dance,300
+4,Design,120
+5,Fashion,120
+6,Film & Video,240
+7,Food,180
+8,Games,240
+9,Journalism,420
+10,Music,60
+11,Photography,1320
+12,Publishing,60
+13,Technology,120
+14,Theater,300
