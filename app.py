@@ -37,7 +37,6 @@ app.layout = html.Div([
                  style={'width': '15%'}),
         html.Div([
             html.H1('Kickstarter Projects')], className='Title',style={'color':'white','font-family': "Verdana",'width': '85%', "margin-top":"0px", "margin-bottom":"0px"}),
-            html.H5("Measuring Success and Failure", style={"margin-top": "0px", 'color':'white'}),
         ],className = 'row container-display'),
         html.Div([
             html.H3("Explore the Industries", style={"margin-top": "0px", 'color':'white', 'margin-bottom':'0px', 'text-align':'center', 'font-style':'italic'}),
