@@ -36,7 +36,7 @@ app.layout = html.Div([
         html.Div([html.Img(src='https://raw.githubusercontent.com/pedromcsantos/DataViz_Project/master/kickstarter-online-share-social-icon-290c27462fcd11ee7b4a6cbd9c1a46a9.png')],
                  style={'width': '15%'}),
         html.Div([
-            html.H1('Kickstarter Projects')], className='Title',style={'color':'white','font-family': "Verdana",'width': '85%', "margin-top":"0px", "margin-bottom":"0px"}),
+            html.H1('Kickstarter Projects')], className='Title',style={'color':'white','font-family': "Verdana",'width': '65%', "margin-top":"0px", "margin-bottom":"0px"}),
         ],className = 'row container-display'),
         html.Div([
             html.H2("Explore the Industries", style={"margin-top": "0px", 'color':'white', 'margin-bottom':'0px', 'text-align':'center', 'font-style':'italic'}),
