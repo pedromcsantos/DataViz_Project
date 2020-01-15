@@ -243,7 +243,7 @@ def plots(year,cat):
     fc_1 = go.Indicator(
         mode = "number+delta",
         number={'prefix': "$", 'font':{'size':25}},
-        title = {'text':"Maximum Investment", 'font':{'size':20}},
+        title = {'text':"Biggest Project", 'font':{'size':20}},
         delta={'reference': int(avg_money["usd_pledged_real"])},
         value = int(max_money_0["usd_pledged_real"]),
         domain = {'row': 0, 'column': 0})
@@ -256,7 +256,7 @@ def plots(year,cat):
         mode="number+delta",
         number={'prefix': "$", 'font':{'size':25}},
         delta={'reference':  int(avg_money["usd_pledged_real"])},
-        title={'text':"Minimum Investment",'font':{'size':20}},
+        title={'text':"Smallest Project",'font':{'size':20}},
         value=int(min_money_0["usd_pledged_real"]),
         domain={'row': 0, 'column': 1})
 
