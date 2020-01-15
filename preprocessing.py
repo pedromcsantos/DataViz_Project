@@ -195,7 +195,7 @@ categories_sum = pd.pivot_table(df,
                                 aggfunc="sum")
 
 
-scaler = MinMaxScaler((10,80))
+scaler = MinMaxScaler((1,80))
 categories_sum2 = scaler.fit_transform(categories_sum)
 
 categories_sum2 = pd.DataFrame(categories_sum2, columns=["pledged_minmax"], index=categories_sum.index)
@@ -231,3 +231,4 @@ shortest.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\
 longest.to_csv("C:\\Users\\pedro\Desktop\\Slides\\Data Viz\\Proj\\Kickstarter\\Git\\DataViz_Project\\longest.csv")
 
 """
+

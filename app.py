@@ -120,7 +120,7 @@ def plots(year,cat):
     )
 
     ########### Bubble ###########
-    categories_sum_0 = categories_sum.loc[categories_sum["year"] == year]
+    categories_sum_0 = categories_sum.loc[categories_sum["year"] <= year]
     data_bubble=[go.Scatter(
         x=categories_sum_0["x"],
         y=categories_sum_0["y"],
@@ -252,7 +252,7 @@ def plots(year,cat):
         value=int(shortest_0["minutes"]),
         domain={'row': 1, 'column': 0})
 
-
+    layout_fc4 = go.Layout(height = 240)
 
     return go.Figure(data=data_sunburst, layout= layout_sunburst), \
            go.Figure(data=data_bubble, layout=layout_bubble),\
@@ -262,7 +262,7 @@ def plots(year,cat):
            go.Figure(data=fc_1), \
            go.Figure(data=fc_2),\
            go.Figure(data=fc_3),\
-           go.Figure(data=fc_4)
+           go.Figure(data=fc_4, layout = layout_fc4)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
