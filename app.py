@@ -39,7 +39,7 @@ app.layout = html.Div([
             html.H1('Kickstarter Projects')], className='Title',style={'color':'white','font-family': "Verdana",'width': '85%', "margin-top":"0px", "margin-bottom":"0px"}),
         ],className = 'row container-display'),
         html.Div([
-            html.H3("Explore the Industries", style={"margin-top": "0px", 'color':'white', 'margin-bottom':'0px', 'text-align':'center', 'font-style':'italic'}),
+            html.H2("Explore the Industries", style={"margin-top": "0px", 'color':'white', 'margin-bottom':'0px', 'text-align':'center', 'font-style':'italic'}),
         ]),
 
     html.Div([# start row 1 flex display
@@ -146,8 +146,8 @@ def plots(year,cat):
         mode='markers',
         text="TITLE", textposition="top center",
         marker=dict(colorscale="viridis", showscale=True,
-            colorbar=dict(title="Category", len = 1.5, tickvals=list(range(1, 16)),
-            ticklen=5,
+            colorbar=dict(title="Category", len = 1.2,ticks = "inside",tickwidth=2, tickvals=list(range(1, 16)),
+            ticklen=30,
             ticktext=categories_sum_0.sort_values("success_rank")["main_category"].unique()),
             color=categories_sum_0.success_rank,
             size=(categories_sum_0["pledged_minmax"])
