@@ -123,7 +123,7 @@ def plots(year,cat):
             colorscale='Viridis',
             showscale=True,  # 'GnBu'
             cmin=con["usd_pledged_real"].sum()/con["backers"].sum()),
-        hovertemplate='<b>%{label} </b> <br> Backers: %{value}<br> Per Backer: %{color:.2f}',
+        hovertemplate='<b>%{label} </b> <br> Backers: %{value}<br> Per Backer/Supporter: %{color:.2f}',
         maxdepth=2,
         name=''
     )
@@ -208,7 +208,7 @@ def plots(year,cat):
     best_month = success_rate_month_perc_0.loc[success_rate_month_perc_0["successful"] == success_rate_month_perc_0["successful"].max()]["month name"]
     best_month = best_month.to_string(index = False)
 
-    layout_line=go.Layout(title= 'Success rate by launch month'+ '<br>' +best_month+' is the best month to start a project in '+ cat + '.',
+    layout_line=go.Layout(title= 'Monthly success rate:' +'<b>'+best_month+'</b>'+ ' is the best month to start a project in '+ '<b>'+cat+'</b>' + '.',
                           xaxis_title='Month', yaxis_title='Success Rate',
                           paper_bgcolor= "#2b2b2b", plot_bgcolor="#2b2b2b",font=dict(color="#ffffff"))
 
@@ -246,6 +246,8 @@ def plots(year,cat):
         value = int(max_money_0["usd_pledged_real"]),
         domain = {'row': 0, 'column': 0})
 
+    layout_fc = go.Layout(height = 120, paper_bgcolor = "#f4f4f4")
+
     #Flash Card 2
     min_money_0 = min_money.loc[min_money.main_category == cat]
     fc_2 = go.Indicator(
@@ -255,8 +257,6 @@ def plots(year,cat):
         title={'text':"Minimum Investment",'font':{'size':20}},
         value=int(min_money_0["usd_pledged_real"]),
         domain={'row': 0, 'column': 1})
-
-    layout_fc = go.Layout(height = 120)
 
     #Flash Card 3
     longest_0  =longest.loc[longest.main_category == cat]
