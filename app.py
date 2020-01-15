@@ -37,7 +37,8 @@ app.layout = html.Div([
                  style={'width': '15%'}),
         html.Div([
             html.H1('Kickstarter Projects')], className='Title',style={'color':'#FFFFFF','font-family': "Verdana",'width': '85%'}),
-            html.H3("Choose your project", style={"margin-top": "0px", 'color':'#FFFFFF'}),
+            html.H3("Explore the Industries", style={"margin-top": "0px", 'color':'#FFFFFF'}),
+            html.H3("Measuring Success and Failure", style={"margin-top": "0px", 'color':'#FFFFFF'}),
         ],className = 'row container-display'),
 
     html.Div([# start row 1 flex display
@@ -246,7 +247,7 @@ def plots(year,cat):
         value = int(max_money_0["usd_pledged_real"]),
         domain = {'row': 0, 'column': 0})
 
-    layout_fc = go.Layout(height = 120, paper_bgcolor = "#f4f4f4")
+    layout_fc = go.Layout(height = 120, paper_bgcolor = "#E0e0e0")
 
     #Flash Card 2
     min_money_0 = min_money.loc[min_money.main_category == cat]
