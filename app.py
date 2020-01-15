@@ -114,7 +114,9 @@ def plots(year,cat):
     )
 
     layout_sunburst = go.Layout(
-        title= "Category size by number of backers"
+        title= "Category size by number of backers",
+        paper_bgcolor="#2b2b2b",
+        plot_bgcolor="#2b2b2b",font=dict(color="#ffffff")
     )
 
     ########### Bubble ###########
@@ -136,7 +138,9 @@ def plots(year,cat):
     layout_bubble=go.Layout(
         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-        title = "Amount of yearly investment by subcategory"
+        title = "Amount of yearly investment by subcategory",
+        paper_bgcolor="#2b2b2b",
+        plot_bgcolor="#2b2b2b",font=dict(color="#ffffff")
         )
     ########### barchart ###########
     data_bar = [
@@ -167,7 +171,9 @@ def plots(year,cat):
         title='Percentage of Successful and Failure projects by subcategory', xaxis=dict(title='Categories'),
         barmode='stack',
         yaxis=dict(range=[-100, 100], tickvals=np.arange(0, 101, 20), tickmode='array',
-                   title='Percentage of Failure/Success')
+                   title='Percentage of Failure/Success'),
+        paper_bgcolor="#2b2b2b",
+        plot_bgcolor="#2b2b2b",font=dict(color="#ffffff")
     )
 
     ########### linechart ###########
@@ -180,10 +186,12 @@ def plots(year,cat):
     best_month = success_rate_month_perc_0.loc[success_rate_month_perc_0["successful"] == success_rate_month_perc_0["successful"].max()]["month name"]
     best_month = best_month.to_string(index = False)
 
-    layout_line=go.Layout(title= 'Success rate by launch month'+ '<br>' +best_month+' is the best month to start a project in '+ cat + '.', xaxis_title='Month', yaxis_title='Success Rate')
+    layout_line=go.Layout(title= 'Success rate by launch month'+ '<br>' +best_month+' is the best month to start a project in '+ cat + '.',
+                          xaxis_title='Month', yaxis_title='Success Rate',
+                          paper_bgcolor= "#2b2b2b", plot_bgcolor="#2b2b2b",font=dict(color="#ffffff"))
 
     ########### parallel ###########
-    data_parallel=go.Parcoords(
+    data_parallel=go.Parcoords(labelfont = dict(color="white"), rangefont=dict(color="white"),
         line=dict(color=con["success_rank"], colorscale="Electric"),
         dimensions=list([
             dict(range=[1, 15],
@@ -201,8 +209,9 @@ def plots(year,cat):
                  tickvals=list(range(1, 16)),
                  ticktext=con[["success_rank","main_category"]].sort_values("success_rank")["main_category"])]))
 
-    layout_parallel = go.Layout(
-        title= "Category Rankings (15 = Best)"
+    layout_parallel = go.Layout( legend = dict(font=dict(color="white")),
+        title= dict(text="Category Rankings (15 = Best)",font=dict(color="white")),
+        paper_bgcolor= "#2b2b2b", plot_bgcolor="#2b2b2b"
     )
     #Flash Card 1
     max_money_0 = max_money.loc[max_money.main_category == cat]
