@@ -187,7 +187,7 @@ def plots(year,cat):
     layout_bar=go.Layout(
         yaxis2=dict(rangemode='nonnegative', overlaying='y', range=[100, -100],
                     tickvals=np.arange(0, 101, 20), tickmode='array'),
-        title='Percentage of Successful and Failure projects by subcategory', xaxis=dict(title='Categories'),
+        title='Percentage of Successful and Failure projects by Category', xaxis=dict(title='Categories'),
         barmode='stack',
         yaxis=dict(range=[-100, 100], tickvals=np.arange(0, 101, 20), tickmode='array',
                    title='Percentage of Failure/Success'),
